@@ -77,6 +77,9 @@ mod system_tray_ui {
             // Fails "No bitmap in embed resource identified by BALL"
             nwg::Bitmap::builder().source_embed(Some(&data.embed)).source_embed_str(Some("BALL"))
             .strict(true).build(&mut data.bitmap)?;
+            // Fails "No bitmap in embed resource identified by BALL2"
+            nwg::Bitmap::builder().source_embed(Some(&data.embed)).source_embed_str(Some("BALL2"))
+            .strict(true).build(&mut data.bitmap)?;
 
             // Resources
             // nwg::Icon::builder()
