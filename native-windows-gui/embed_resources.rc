@@ -5,6 +5,7 @@ TEST ICON "./test_rc/cog.ico"
 
 BALL BITMAP "./test_rc/ball.bmp"
 BALL2 RT_BITMAP "./test_rc/ball.bmp"
+BALLIMG IMAGE  "./test_rc/ball.bmp"
 
 ICE CURSOR "./test_rc/ice.cur"
 
