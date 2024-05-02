@@ -1,7 +1,7 @@
-/*!
-    An application that runs in the system tray.
-
-    Requires the following features: `cargo run --example system_tray --features "tray-notification message-window menu cursor"`
+/*
+cargo run --example system_tray --features "tray-notification message-window menu cursor embed-resource image-decoder"
+cargo check --example system_tray --features "tray-notification message-window menu cursor embed-resource image-decoder"
+cargo test --example system_tray --features "tray-notification message-window menu cursor embed-resource image-decoder"
 */
 extern crate native_windows_gui as nwg;
 use nwg::NativeUi;
@@ -16,6 +16,8 @@ pub struct SystemTray {
     tray_item1: nwg::MenuItem,
     tray_item2: nwg::MenuItem,
     tray_item3: nwg::MenuItem,
+    embed: nwg::EmbedResource,
+    bitmap     : nwg::Bitmap,
 }
 
 impl SystemTray {
@@ -60,11 +62,27 @@ mod system_tray_ui {
         fn build_ui(mut data: SystemTray) -> Result<SystemTrayUi, nwg::NwgError> {
             use nwg::Event as E;
 
+
+
+            data.embed = Default::default();
+            data.embed = nwg::EmbedResource::load(Some("system_tray.exe"))?;
+            // OK
+            nwg::Icon::builder().source_embed(Some(&data.embed)).source_embed_str(Some("MAINICON"))
+            .strict(true).build(&mut data.icon)?;
+
+            // OK
+            nwg::Bitmap::builder().source_file(Some("./test_rc/ball.bmp"))
+            .strict(true).build(&mut data.bitmap)?;
+
+            // Fails "No bitmap in embed resource identified by BALL"
+            nwg::Bitmap::builder().source_embed(Some(&data.embed)).source_embed_str(Some("BALL"))
+            .strict(true).build(&mut data.bitmap)?;
+
             // Resources
-            nwg::Icon::builder()
-                .source_file(Some("./test_rc/cog.ico"))
-                .build(&mut data.icon)?;
-            
+            // nwg::Icon::builder()
+                // .source_file(Some("./test_rc/cog.ico"))
+                // .build(&mut data.icon)?;
+
             // Controls
             nwg::MessageWindow::builder()
                 .build(&mut data.window)?;
