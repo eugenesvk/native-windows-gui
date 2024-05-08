@@ -11,4 +11,4 @@ native-windows-gui = {path = "../../", features=["high-dpi"]}
 native-windows-derive = {path = "../../../native-windows-derive"}
 
 [build-dependencies]
-embed-resource = "1.3"
+embed-resource = "2.4"
