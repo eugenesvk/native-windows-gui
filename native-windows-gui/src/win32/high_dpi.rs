@@ -58,5 +58,6 @@ pub unsafe fn dpi() -> i32 {
     use winapi::um::wingdi::LOGPIXELSX;
     let screen = GetDC(std::ptr::null_mut());
     let dpi = GetDeviceCaps(screen, LOGPIXELSX);
+    let _ = ReleaseDC(std::ptr::null_mut(),screen);
     dpi
 }
